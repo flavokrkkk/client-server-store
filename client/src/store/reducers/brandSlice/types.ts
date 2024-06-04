@@ -1,6 +1,6 @@
 import { IBrand } from "../../../models/IBrand";
 
 export interface BrandState {
-  brand: IBrand[];
+  brands: IBrand[];
   selectedBrand: IBrand;
 }

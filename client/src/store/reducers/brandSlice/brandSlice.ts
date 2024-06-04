@@ -4,7 +4,7 @@ import { BrandState } from "./types";
 import { brands } from "../../../utils/mockData";
 
 const initialState = <BrandState>{
-  brand: brands,
+  brands: brands,
   selectedBrand: {} as IBrand,
 };
 
@@ -13,7 +13,7 @@ export const brandSlice = createSlice({
   initialState,
   reducers: (create) => ({
     setBrand: create.reducer((state, { payload }: PayloadAction<IBrand[]>) => {
-      state.brand = payload;
+      state.brands = payload;
     }),
     setSelectedBrand: create.reducer(
       (state, { payload }: PayloadAction<IBrand>) => {

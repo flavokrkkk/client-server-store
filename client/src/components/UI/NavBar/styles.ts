@@ -1,4 +1,4 @@
-import { Toolbar, styled } from "@mui/material";
+import { Box, Toolbar, styled } from "@mui/material";
 import { styled as styles } from "styled-components";
 export const NavBarWrapper = styled(Toolbar)({
   display: " flex",
@@ -7,5 +7,9 @@ export const NavBarWrapper = styled(Toolbar)({
 
 export const ButtonWrapper = styles.div`
     display: flex;
-    gap: 25px;
+    gap: 20px;
 `;
+
+export const NavBarContainer = styled(Box)({
+  marginBottom: "20px",
+});
