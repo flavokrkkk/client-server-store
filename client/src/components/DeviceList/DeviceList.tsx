@@ -20,7 +20,11 @@ const DeviceList: FC<DeviceListProps> = ({ device }) => {
     <CardWrapper>
       <CardImage image={device.img} />
       <CardHeader>
-        <Typography variant="h6">{`${device.price} $`}</Typography>
+        <Typography
+          variant="h6"
+          fontWeight={"300"}
+          fontSize={"15px"}
+        >{`${device.price} $`}</Typography>
       </CardHeader>
       <ButttonWrapper>
         <Button variant="outlined" size="small" onClick={handleNavigation}>

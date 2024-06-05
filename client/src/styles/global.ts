@@ -1,3 +1,4 @@
+import { Container, styled } from "@mui/material";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
@@ -16,3 +17,10 @@ export const GlobalStyles = createGlobalStyle`
         color: #fff
     }
 `;
+
+export const ProgressBarContainer = styled(Container)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "calc(90vh - 64px)",
+});

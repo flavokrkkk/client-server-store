@@ -15,14 +15,6 @@ export const publicRoute = <IRoute[]>[
     path: RoutesName.REGISTRATION_ROUTE,
     component: AuthPage,
   },
-  {
-    path: RoutesName.SHOP_ROUTE,
-    component: ShopPage,
-  },
-  {
-    path: RoutesName.DEVICE_ROUTE + "/:id",
-    component: DevicePage,
-  },
 ];
 
 export const privateRoute = <IRoute[]>[
@@ -33,5 +25,13 @@ export const privateRoute = <IRoute[]>[
   {
     path: RoutesName.BASKET_ROUTE,
     component: BasketPage,
+  },
+  {
+    path: RoutesName.SHOP_ROUTE,
+    component: ShopPage,
+  },
+  {
+    path: RoutesName.DEVICE_ROUTE + "/:id",
+    component: DevicePage,
   },
 ];

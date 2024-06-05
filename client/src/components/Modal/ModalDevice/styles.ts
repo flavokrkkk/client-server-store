@@ -28,3 +28,20 @@ export const ModalBody = styled(Box)({
   justifyContent: "center",
   gap: "30px",
 });
+
+export const FormWrapper = styles.div`
+display: flex; 
+gap: 20px;
+`;
+
+export const DescriptionWrapper = styles.div`
+display: flex;
+flex-direction: column;
+gap: 15px;
+margin-top: 20px;
+`;
+
+export const ButtonWrapper = styles.div`
+    text-align: center;
+    padding: 20px;
+`;

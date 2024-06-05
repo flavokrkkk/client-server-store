@@ -10,13 +10,34 @@ import {
 } from "./styles.ts";
 import { NavLink } from "react-router-dom";
 import { RoutesName } from "../../utils/routesName.ts";
-import { FC } from "react";
+import { ChangeEventHandler, FC, useState } from "react";
 
 interface LoginFormProps {
   isPathName: boolean;
+  handleAuthorizeUserAsync: (email: string, password: string) => void;
 }
 
-const LoginForm: FC<LoginFormProps> = ({ isPathName }) => {
+const LoginForm: FC<LoginFormProps> = ({
+  isPathName,
+  handleAuthorizeUserAsync,
+}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleChangeEmail: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleChangePassword: ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setPassword(event.target.value);
+  };
+
+  const handleAuthorization = () => {
+    handleAuthorizeUserAsync(email, password);
+  };
+
   return (
     <GridWrapper container>
       <TypographyTitle variant="h3">Добрый день!</TypographyTitle>
@@ -26,8 +47,20 @@ const LoginForm: FC<LoginFormProps> = ({ isPathName }) => {
       </TypographySubTitle>
       <form>
         <GridForm container>
-          <TextField size="small" fullWidth placeholder="E-mail" />
-          <TextField size="small" fullWidth placeholder="Password" />
+          <TextField
+            size="small"
+            fullWidth
+            placeholder="E-mail"
+            value={email}
+            onChange={handleChangeEmail}
+          />
+          <TextField
+            size="small"
+            fullWidth
+            placeholder="Password"
+            value={password}
+            onChange={handleChangePassword}
+          />
           <BoxForm>
             <span>
               {isPathName ? (
@@ -49,7 +82,7 @@ const LoginForm: FC<LoginFormProps> = ({ isPathName }) => {
           </BoxForm>
         </GridForm>
         <ButtonWrapper>
-          <Button variant="outlined">
+          <Button variant="outlined" onClick={handleAuthorization}>
             {isPathName ? "Войти" : "Регистрация"}
           </Button>
         </ButtonWrapper>

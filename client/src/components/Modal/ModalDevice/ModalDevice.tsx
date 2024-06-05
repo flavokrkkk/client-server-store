@@ -1,15 +1,25 @@
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Modal,
   Select,
+  TextField,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useAppSelector } from "../../../hooks/useAppSelector";
 import { brandSelectors, typeSelectors } from "../../../store/selectors";
-import { Hr, ModalStyles, ModalTitle } from "./styles";
-
+import {
+  ButtonWrapper,
+  DescriptionWrapper,
+  FormWrapper,
+  Hr,
+  ModalStyles,
+  ModalTitle,
+} from "./styles";
+import ModalDeviceList from "../../ModalDeviceList/ModalDeviceList";
+import { IInfo } from "../../../models/IInfo";
 interface ModalDeviceProps {
   isVisible: boolean;
   setIsVisible: (active: boolean) => void;
@@ -18,6 +28,16 @@ interface ModalDeviceProps {
 const ModalDevice: FC<ModalDeviceProps> = ({ isVisible, setIsVisible }) => {
   const { types } = useAppSelector(typeSelectors);
   const { brands } = useAppSelector(brandSelectors);
+
+  const [infos, setInfo] = useState<IInfo[]>([]);
+
+  const handleAddedInfo = () => {
+    setInfo([...infos, { title: "", description: "", id: Date.now() }]);
+  };
+
+  const handleDeleteInfo = (id: number) => {
+    setInfo(infos.filter((i) => i.id !== id));
+  };
 
   const handleCloseModal = () => {
     setIsVisible(false);
@@ -35,24 +55,53 @@ const ModalDevice: FC<ModalDeviceProps> = ({ isVisible, setIsVisible }) => {
           Добавить устройство
           <Hr />
         </ModalTitle>
-        <div style={{ display: "flex", gap: "20px" }}>
-          <FormControl fullWidth>
-            <InputLabel>Выберите тип</InputLabel>
-            <Select label="Type">
-              {types.map((type) => (
-                <MenuItem value={type.name}>{type.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel>Выберите бренд</InputLabel>
-            <Select label="Brand">
-              {brands.map((brand) => (
-                <MenuItem value={brand.name}>{brand.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+        <form>
+          <FormWrapper>
+            <FormControl fullWidth variant="standard">
+              <InputLabel>Выберите тип</InputLabel>
+              <Select value={""}>
+                {types.map((type) => (
+                  <MenuItem value={type.name}>{type.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth variant="standard">
+              <InputLabel>Выберите бренд</InputLabel>
+              <Select label="Brand" value={""}>
+                {brands.map((brand) => (
+                  <MenuItem value={brand.name}>{brand.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </FormWrapper>
+          <DescriptionWrapper>
+            <TextField
+              fullWidth
+              size="small"
+              placeholder="Введите название устройства"
+            />
+            <TextField
+              fullWidth
+              size="small"
+              type="number"
+              placeholder="Введите стоимость устройства"
+            />
+            <TextField fullWidth size="small" type="file" />
+          </DescriptionWrapper>
+          <Hr />
+          <ButtonWrapper>
+            <Button variant="outlined" onClick={handleAddedInfo}>
+              Добавить новое свойство
+            </Button>
+          </ButtonWrapper>
+          {infos.map((info) => (
+            <ModalDeviceList
+              key={info.id}
+              info={info}
+              handleDeleteInfo={handleDeleteInfo}
+            />
+          ))}
+        </form>
       </ModalStyles>
     </Modal>
   );

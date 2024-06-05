@@ -8,6 +8,7 @@ import { useAppSelector } from "../../../hooks/useAppSelector";
 import { userSelectors } from "../../../store/selectors";
 import { NavLink, useNavigate } from "react-router-dom";
 import { RoutesName } from "../../../utils/routesName";
+import { useActions } from "../../../hooks/useActions";
 
 interface NavBarProps {
   title: string;
@@ -16,14 +17,16 @@ interface NavBarProps {
 const NavBar: FC<NavBarProps> = ({ title }) => {
   const { isAuth } = useAppSelector(userSelectors);
 
+  const { logoutUserAsync } = useActions();
+
   const navigate = useNavigate();
 
   const handleNavigationToAdminPage = () => {
     navigate(RoutesName.ADMIN_ROUTE);
   };
 
-  const handleNavigationToAuthPage = () => {
-    navigate(RoutesName.LOGIN_ROUTE);
+  const handleLogout = () => {
+    logoutUserAsync();
   };
 
   return (
@@ -47,7 +50,7 @@ const NavBar: FC<NavBarProps> = ({ title }) => {
                   <Button
                     color="inherit"
                     variant="outlined"
-                    onClick={handleNavigationToAuthPage}
+                    onClick={handleLogout}
                   >
                     Log out
                   </Button>
