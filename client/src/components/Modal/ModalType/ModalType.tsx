@@ -1,5 +1,6 @@
-import { Box, Modal, Typography } from "@mui/material";
+import { Button, Modal, TextField } from "@mui/material";
 import { FC } from "react";
+import { Hr, ModalBody, ModalStyles, ModalTitle } from "./styles";
 
 interface ModalTypeProps {
   isVisible: boolean;
@@ -7,18 +8,6 @@ interface ModalTypeProps {
 }
 
 const ModalType: FC<ModalTypeProps> = ({ isVisible, setIsVisible }) => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
   const handleCloseModal = () => {
     setIsVisible(false);
   };
@@ -30,14 +19,22 @@ const ModalType: FC<ModalTypeProps> = ({ isVisible, setIsVisible }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </Box>
+      <ModalStyles>
+        <ModalTitle variant="h4">
+          Добавить тип
+          <Hr />
+        </ModalTitle>
+        <form>
+          <ModalBody>
+            <TextField
+              fullWidth
+              size="small"
+              placeholder="Введите название типа"
+            />
+            <Button variant="outlined">Добавить</Button>
+          </ModalBody>
+        </form>
+      </ModalStyles>
     </Modal>
   );
 };

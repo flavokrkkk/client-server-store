@@ -1,10 +1,6 @@
 import { Box, Card, Grid, Typography, styled } from "@mui/material";
 import { styled as styles } from "styled-components";
 
-interface CardListDescriptionProps {
-  index: number;
-}
-
 export const GridContainer = styled(Grid)({
   display: "flex",
   maxWidth: 1110,
@@ -40,8 +36,3 @@ export const DescriptionContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
 });
-
-export const CardListDescription = styled(Box)<CardListDescriptionProps>`
-  padding: 15px;
-  background-color: ${({ index }) => (index % 2 === 0 ? "lightgray" : "#fff")};
-`;

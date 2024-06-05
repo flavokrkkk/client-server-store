@@ -1,5 +1,14 @@
-import { Box, Modal, Typography } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+} from "@mui/material";
 import { FC } from "react";
+import { useAppSelector } from "../../../hooks/useAppSelector";
+import { brandSelectors, typeSelectors } from "../../../store/selectors";
+import { Hr, ModalStyles, ModalTitle } from "./styles";
 
 interface ModalDeviceProps {
   isVisible: boolean;
@@ -7,17 +16,8 @@ interface ModalDeviceProps {
 }
 
 const ModalDevice: FC<ModalDeviceProps> = ({ isVisible, setIsVisible }) => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  const { types } = useAppSelector(typeSelectors);
+  const { brands } = useAppSelector(brandSelectors);
 
   const handleCloseModal = () => {
     setIsVisible(false);
@@ -30,14 +30,30 @@ const ModalDevice: FC<ModalDeviceProps> = ({ isVisible, setIsVisible }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </Box>
+      <ModalStyles>
+        <ModalTitle variant="h4">
+          Добавить устройство
+          <Hr />
+        </ModalTitle>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <FormControl fullWidth>
+            <InputLabel>Выберите тип</InputLabel>
+            <Select label="Type">
+              {types.map((type) => (
+                <MenuItem value={type.name}>{type.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel>Выберите бренд</InputLabel>
+            <Select label="Brand">
+              {brands.map((brand) => (
+                <MenuItem value={brand.name}>{brand.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      </ModalStyles>
     </Modal>
   );
 };

@@ -6,13 +6,13 @@ import {
   BoxWrapper,
   CardDescription,
   CardFooter,
-  CardListDescription,
   DescriptionContainer,
   GridContainer,
   TitleDescription,
 } from "./styles";
 import { description } from "../../utils/mockData";
 import { IDescriptions } from "../../models/IDescription";
+import DescriptionList from "../DescriptionList/DescriptionList";
 
 interface DeviceItemProps {
   device: IDevice;
@@ -59,9 +59,7 @@ const DeviceItem: FC<DeviceItemProps> = ({ device, descriptions }) => {
         <TitleDescription variant="h4">Характеристики</TitleDescription>
         <DescriptionContainer>
           {descriptions.map((description, index) => (
-            <CardListDescription index={index} key={description.id}>
-              {description.title}: {description.description}
-            </CardListDescription>
+            <DescriptionList description={description} index={index} />
           ))}
         </DescriptionContainer>
       </Container>
