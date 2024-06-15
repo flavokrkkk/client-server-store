@@ -4,5 +4,5 @@ export interface UserState {
   isAuth: boolean;
   user: IUser;
   isLoading: boolean;
-  error: unknown | string;
+  error: string;
 }

@@ -6,6 +6,7 @@ import { useAppSelector } from "./hooks/useAppSelector";
 import { userSelectors } from "./store/selectors";
 import { ProgressBarContainer } from "./styles/global";
 import { CircularProgress } from "@mui/material";
+import ModalError from "./components/Modal/ModalError/ModalError";
 
 function App() {
   const { authenticateUserAsync } = useActions();
@@ -25,14 +26,11 @@ function App() {
     );
   }
 
-  if (error) {
-    return <h1>{`${error}`}</h1>;
-  }
-
   return (
     <>
       <NavBar title="VK Shop" />
       <AppRouter />
+      {error && <ModalError error={error} />}
     </>
   );
 }

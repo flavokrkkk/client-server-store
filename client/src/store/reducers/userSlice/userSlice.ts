@@ -56,11 +56,11 @@ export const userSlice = createSliceWithThunks({
           state.isAuth = true;
           state.user = payload;
           state.isLoading = false;
-          state.error = null;
+          state.error = "";
         },
-        rejected: (state, { payload }: PayloadAction<string | unknown>) => {
+        rejected: (state) => {
           state.isLoading = false;
-          state.error = payload;
+          state.error = "Не удалось зарегистрироватся!";
         },
       }
     ),
@@ -85,11 +85,11 @@ export const userSlice = createSliceWithThunks({
           state.isAuth = true;
           state.user = payload;
           state.isLoading = false;
-          state.error = null;
+          state.error = "";
         },
-        rejected: (state, { payload }: PayloadAction<string | unknown>) => {
+        rejected: (state) => {
           state.isLoading = false;
-          state.error = payload;
+          state.error = "Перепроверьте данные!";
         },
       }
     ),
@@ -118,9 +118,9 @@ export const userSlice = createSliceWithThunks({
           state.user = payload;
           state.isLoading = false;
         },
-        rejected: (state, { payload }: PayloadAction<string | unknown>) => {
+        rejected: (state) => {
           state.isLoading = false;
-          state.error = payload;
+          state.error = "Войдите в приложение заново!";
         },
       }
     ),
