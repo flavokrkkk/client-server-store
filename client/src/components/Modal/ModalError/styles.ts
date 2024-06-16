@@ -13,6 +13,7 @@ export const ModalContent = styled(Box)({
   flexDirection: "column",
   gap: "40px",
   padding: "20px",
+  border: "2px solid #fff",
 });
 
 export const ModalTitle = styled(Typography)({

@@ -6,7 +6,7 @@ import { GridWrapper } from "./styles";
 const DeviceBar = () => {
   const { devices } = useAppSelector(deviceSelectors);
   return (
-    <GridWrapper container>
+    <GridWrapper container style={{ width: "800px" }}>
       {devices.map((device) => (
         <DeviceList key={device.id} device={device} />
       ))}

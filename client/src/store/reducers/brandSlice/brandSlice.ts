@@ -1,14 +1,24 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  asyncThunkCreator,
+  buildCreateSlice,
+} from "@reduxjs/toolkit";
 import { IBrand } from "../../../models/IBrand";
 import { BrandState } from "./types";
-import { brands } from "../../../utils/mockData";
+import { $authHost } from "../../../api";
+import { baseUrl } from "../../../utils/baseUrl";
 
 const initialState = <BrandState>{
-  brands: brands,
+  brands: [],
   selectedBrand: {} as IBrand,
+  error: "",
 };
 
-export const brandSlice = createSlice({
+const createSliceWithThunks = buildCreateSlice({
+  creators: { asyncThunk: asyncThunkCreator },
+});
+
+export const brandSlice = createSliceWithThunks({
   name: "brand",
   initialState,
   reducers: (create) => ({
@@ -18,6 +28,26 @@ export const brandSlice = createSlice({
     setSelectedBrand: create.reducer(
       (state, { payload }: PayloadAction<IBrand>) => {
         state.selectedBrand = payload;
+      }
+    ),
+    setAsyncBrand: create.asyncThunk<IBrand[], void, { rejectValue: string }>(
+      async (_, { rejectWithValue }) => {
+        try {
+          const { data } = await $authHost.get<IBrand[]>(
+            baseUrl.REACT_APP_API_URL + "api/brand"
+          );
+          return data;
+        } catch (err) {
+          return rejectWithValue(`${err}`);
+        }
+      },
+      {
+        fulfilled: (state, { payload }: PayloadAction<IBrand[]>) => {
+          state.brands = payload;
+        },
+        rejected: (state) => {
+          state.error = "Не удалось загрузить бренды!";
+        },
       }
     ),
   }),

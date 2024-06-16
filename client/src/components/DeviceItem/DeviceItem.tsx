@@ -11,15 +11,14 @@ import {
   TitleDescription,
 } from "./styles";
 import { description } from "../../utils/mockData";
-import { IDescriptions } from "../../models/IDescription";
 import DescriptionList from "../DescriptionList/DescriptionList";
+import { baseUrl } from "../../utils/baseUrl";
 
 interface DeviceItemProps {
   device: IDevice;
-  descriptions: IDescriptions[];
 }
 
-const DeviceItem: FC<DeviceItemProps> = ({ device, descriptions }) => {
+const DeviceItem: FC<DeviceItemProps> = ({ device }) => {
   return (
     <>
       <GridContainer>
@@ -27,7 +26,11 @@ const DeviceItem: FC<DeviceItemProps> = ({ device, descriptions }) => {
           <Typography variant="h4" fontWeight={300}>
             {device.name}
           </Typography>
-          <img src={device.img} width={340} height={330} />
+          <img
+            src={baseUrl.REACT_APP_API_URL + device.img}
+            width={340}
+            height={330}
+          />
         </BoxWrapper>
         <Box>
           <BoxContainer>
@@ -58,7 +61,7 @@ const DeviceItem: FC<DeviceItemProps> = ({ device, descriptions }) => {
       <Container>
         <TitleDescription variant="h4">Характеристики</TitleDescription>
         <DescriptionContainer>
-          {descriptions.map((description, index) => (
+          {device.info.map((description, index) => (
             <DescriptionList description={description} index={index} />
           ))}
         </DescriptionContainer>
