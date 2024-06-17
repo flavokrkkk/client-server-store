@@ -12,6 +12,7 @@ const initialState = <TypeState>{
   types: [],
   selectedType: {} as IType,
   error: "",
+  isLoading: false,
 };
 
 const createSliceWithThunks = buildCreateSlice({
@@ -48,6 +49,32 @@ export const typeSlice = createSliceWithThunks({
         },
         rejected: (state) => {
           state.error = "Не удалось получить типы";
+        },
+      }
+    ),
+    createAsyncType: create.asyncThunk<IType, string, { rejectValue: string }>(
+      async (name: string, { rejectWithValue }) => {
+        try {
+          const { data } = await $authHost.post(
+            baseUrl.REACT_APP_API_URL + "api/type",
+            { name }
+          );
+          return data;
+        } catch (error) {
+          rejectWithValue(`${error}`);
+        }
+      },
+      {
+        pending: (state) => {
+          state.isLoading = true;
+        },
+        fulfilled: (state, { payload }: PayloadAction<IType>) => {
+          state.types.push(payload);
+          state.isLoading = false;
+          state.error = "";
+        },
+        rejected: (state) => {
+          state.error = "Не удалось создать товар!";
         },
       }
     ),

@@ -19,6 +19,7 @@ interface DeviceItemProps {
 }
 
 const DeviceItem: FC<DeviceItemProps> = ({ device }) => {
+  console.log(device.info);
   return (
     <>
       <GridContainer>
@@ -61,9 +62,10 @@ const DeviceItem: FC<DeviceItemProps> = ({ device }) => {
       <Container>
         <TitleDescription variant="h4">Характеристики</TitleDescription>
         <DescriptionContainer>
-          {device.info.map((description, index) => (
-            <DescriptionList description={description} index={index} />
-          ))}
+          {device.info &&
+            device.info.map((description, index) => (
+              <DescriptionList description={description} index={index} />
+            ))}
         </DescriptionContainer>
       </Container>
     </>

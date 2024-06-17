@@ -12,6 +12,7 @@ const initialState = <BrandState>{
   brands: [],
   selectedBrand: {} as IBrand,
   error: "",
+  isLoading: false,
 };
 
 const createSliceWithThunks = buildCreateSlice({
@@ -47,6 +48,29 @@ export const brandSlice = createSliceWithThunks({
         },
         rejected: (state) => {
           state.error = "Не удалось загрузить бренды!";
+        },
+      }
+    ),
+    createAsyncBrand: create.asyncThunk(
+      async (name: string, { rejectWithValue }) => {
+        try {
+          const { data } = await $authHost.post<IBrand>("api/brand", { name });
+          return data;
+        } catch (err) {
+          return rejectWithValue(`${err}`);
+        }
+      },
+      {
+        pending: (state) => {
+          state.isLoading = true;
+        },
+        fulfilled: (state, { payload }: PayloadAction<IBrand>) => {
+          state.brands.push(payload);
+          state.isLoading = false;
+          state.error = "";
+        },
+        rejected: (state) => {
+          state.error = "Не удалось создать бренд!";
         },
       }
     ),

@@ -1,12 +1,12 @@
-import { CircularProgress, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import DeviceItem from "../../components/DeviceItem/DeviceItem";
 import { useEffect } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { deviceSelectors } from "../../store/selectors";
-import { ProgressBarContainer } from "../../styles/global";
 import ModalError from "../../components/Modal/ModalError/ModalError";
+import Loader from "../../components/UI/Loader/Loader";
 
 const DevicePage = () => {
   const { setAsyncDevice } = useActions();
@@ -20,11 +20,7 @@ const DevicePage = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <ProgressBarContainer>
-        <CircularProgress disableShrink />
-      </ProgressBarContainer>
-    );
+    return <Loader />;
   }
 
   return (

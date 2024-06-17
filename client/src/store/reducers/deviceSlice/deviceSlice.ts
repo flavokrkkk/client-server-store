@@ -89,6 +89,35 @@ export const deviceSlice = createSliceWithThunks({
         },
       }
     ),
+
+    createAsyncDevice: create.asyncThunk(
+      async (device: FormData, { rejectWithValue }) => {
+        try {
+          console.log(device);
+          const { data } = await $authHost.post<IDevice>(
+            baseUrl.REACT_APP_API_URL + "api/device",
+            device
+          );
+          return data;
+        } catch (error) {
+          return rejectWithValue(`${error}`);
+        }
+      },
+      {
+        pending: (state) => {
+          state.isLoading = true;
+        },
+        fulfilled: (state, { payload }: PayloadAction<IDevice>) => {
+          state.devices.push(payload);
+          state.isLoading = false;
+          state.error = "";
+        },
+        rejected: (state) => {
+          state.isLoading = false;
+          state.error = "Не удалось создать устройство!";
+        },
+      }
+    ),
   }),
 });
 

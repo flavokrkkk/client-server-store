@@ -4,9 +4,8 @@ import NavBar from "./components/UI/NavBar/NavBar";
 import { useActions } from "./hooks/useActions";
 import { useAppSelector } from "./hooks/useAppSelector";
 import { userSelectors } from "./store/selectors";
-import { ProgressBarContainer } from "./styles/global";
-import { CircularProgress } from "@mui/material";
 import ModalError from "./components/Modal/ModalError/ModalError";
+import Loader from "./components/UI/Loader/Loader";
 
 function App() {
   const { authenticateUserAsync } = useActions();
@@ -19,11 +18,7 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return (
-      <ProgressBarContainer>
-        <CircularProgress disableShrink />
-      </ProgressBarContainer>
-    );
+    return <Loader />;
   }
 
   return (

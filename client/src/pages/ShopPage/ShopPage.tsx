@@ -4,6 +4,7 @@ import BrandBar from "../../components/UI/BrandBar/BrandBar";
 import DeviceBar from "../../components/UI/DeviceBar/DeviceBar";
 import { useActions } from "../../hooks/useActions";
 import { useEffect } from "react";
+import Pages from "../../components/UI/Pages/Pages";
 
 const ShopPage = () => {
   const { setAsyncTypes, setAsyncBrand, setAsyncDevices } = useActions();
@@ -22,6 +23,7 @@ const ShopPage = () => {
         <Box>
           <BrandBar />
           <DeviceBar />
+          <Pages />
         </Box>
       </Grid>
     </Container>

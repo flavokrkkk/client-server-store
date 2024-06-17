@@ -3,9 +3,12 @@ import { AdminContainer } from "./styles";
 import ModalBrand from "../../components/Modal/ModalBrand/ModalBrand";
 import ModalType from "../../components/Modal/ModalType/ModalType";
 import ModalDevice from "../../components/Modal/ModalDevice/ModalDevice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useActions } from "../../hooks/useActions";
 
 const AdminPage = () => {
+  const { setAsyncBrand, setAsyncTypes } = useActions();
+
   const [isVisibleTypeModal, setIsVisibleTypeModal] = useState(false);
   const [isVisibleBrandModal, setIsVisibleBrandModal] = useState(false);
   const [isVisibleDeviceModal, setIsVisibleDeviceModal] = useState(false);
@@ -21,6 +24,11 @@ const AdminPage = () => {
   const handleOpenModalType = () => {
     setIsVisibleTypeModal(true);
   };
+
+  useEffect(() => {
+    setAsyncBrand();
+    setAsyncTypes();
+  }, []);
 
   return (
     <AdminContainer>

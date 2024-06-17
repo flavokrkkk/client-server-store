@@ -42,6 +42,8 @@ margin-top: 20px;
 `;
 
 export const ButtonWrapper = styles.div`
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     padding: 20px;
 `;
